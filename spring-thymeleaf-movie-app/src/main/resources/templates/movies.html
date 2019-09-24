@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Movies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<h1 class="text-center">Movies</h1>
+	<table class="table">
+		<thead class="table-dark">
+		<tr>
+			<th>Title</th>
+			<th>Production</th>
+			<th>Release Year</th>
+			<th>Actors</th>
+			<th>More</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="movie : ${movies}">
+			<td th:text=${movie.title}></td>
+			<td th:text=${movie.productionHouse}></td>
+			<td th:text=${movie.releaseYear}></td>
+			<td><span th:each="actor, itrBlock : ${movie.actors}"> <span
+					th:text="${actor.firstName +' '+actor.lastName}"></span>
+				<th:block th:if="${!itrBlock.last}"> and </th:block>
+			</span></td>
+			<td><a class="btn btn-primary" th:href="@{/movie/{id}(id=${movie.id})}">View</a></td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center" style="padding-top: 10px;">
+		<button type="button" class="btn btn-primary btn-lg text-center" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>
+	</div>
+	<div class="modal" tabindex="-1" role="dialog" id="addMovieModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add a new Movie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/movies}" method="post" enctype="multipart/form-data" style="padding-left: 100px; padding-right: 100px">
+		<div class="form-group">
+			<label for="title">Title</label> 
+			<input type="text" class="form-control" name="title" aria-describedby="emailHelp" placeholder="Enter movie title" required>
+		</div>
+		<div class="form-group">
+			<label for="productionHouse">Production House</label> 
+			<input type="text" class="form-control" name=productionHouse placeholder="Enter production house" required>
+		</div>
+		<div class="form-group">
+			<label for="releaseYear">Release Year</label> 
+			<input type="text" class="form-control" name="releaseYear" placeholder="Enter release year" required>
+		</div>
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Add Movie</button>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

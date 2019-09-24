@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Movie</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<div class="d-flex justify-content-center" style="padding-top: 30px;">
+		<div class="card" style="width: 30rem;">
+  			<div class="card-body">
+    			<h5 class="card-title text-center">Movie Details</h5>
+    			<p><b>Movie Title: </b><span th:text="${movie.title}"></span></p>
+    			<p><b>Production:</b> <span th:text="${movie.productionHouse}"></span></p>
+    			<p><b>Release:</b> <span th:text="${movie.releaseYear}"></span></p>
+    			<p><b>Actors:</b> <span th:each="actor : ${movie.actors}">
+								<span th:text="${actor.firstName + ' '+ actor.lastName}"></span>
+				</span></p>
+				<a class="btn btn-secondary" href="/movies">Back</a>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActor">Add New Actor</button>
+  			</div>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+<div class="modal fade" id="addActor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/movie/{id}/actors(id=${movie.id})}" method="post" enctype="multipart/form-data">
+		<select name="actorId">
+			<option th:each="actor : ${actors}" th:value="${actor.id}" th:text="${actor.firstName +' '+actor.lastName}">Actor</option>
+		</select>
+		 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Add Actor</button>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
