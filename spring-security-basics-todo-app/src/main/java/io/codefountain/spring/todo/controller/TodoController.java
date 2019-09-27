@@ -24,7 +24,6 @@ public class TodoController {
 	
 	@GetMapping
 	public String index(Model model) {
-		//model.addAttribute("todos", todoRepository.findAll());
 		return "index";
 	}
 	
