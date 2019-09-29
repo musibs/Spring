@@ -1,6 +1,7 @@
 package io.codefountain.spring.todo.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,21 +16,19 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.inMemoryAuthentication()
-			.withUser("somnath").password("{noop}password").authorities("USER")
+			.withUser("cook").password("{noop}iamcook").authorities("USER")
 			.and()
-			.withUser("jhini").password("{noop}password").authorities("USER","ADMIN");
+			.withUser("chef").password("{noop}iamchef").authorities("USER","ADMIN");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/todoAll*").hasAuthority("USER")
-			.antMatchers("/todo*").hasAuthority("ADMIN")
+			.antMatchers("/todos*", "/error").hasAuthority("USER")
+			.antMatchers("/todoDelete/*").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.POST, "/todo*").hasAuthority("ADMIN")
 			.and()
 			.formLogin();
-			/*.and()
-			.csrf()
-			.disable();*/
 	}
 }

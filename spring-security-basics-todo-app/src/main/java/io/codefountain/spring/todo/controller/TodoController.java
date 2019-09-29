@@ -17,17 +17,12 @@ public class TodoController {
 	@Autowired
 	private TodoRepository todoRepository;
 	
-	@PostMapping("/error")
-	public String error() {
-		return "error";
-	}
-	
 	@GetMapping
 	public String index(Model model) {
 		return "index";
 	}
 	
-	@GetMapping("/todoAll")
+	@GetMapping("/todos")
 	public String todos(Model model) {
 		model.addAttribute("todos", todoRepository.findAll());
 		return "todos";
@@ -40,14 +35,28 @@ public class TodoController {
 		todo.setCompleted(status);
 		todoRepository.save(todo);
 		model.addAttribute("todos", todoRepository.findAll());
-		return "redirect:/todoAll";
+		return "redirect:/todos";
 	}
 	
 	@PostMapping("/todoDelete/{id}")
 	public String delete(@PathVariable long id, Model model) {
 		todoRepository.deleteById(id);
 		model.addAttribute("todos", todoRepository.findAll());
-		return "redirect:/todoAll";
+		return "redirect:/todos";
+	}
+	
+	@PostMapping("/todoUpdate/{id}")
+	public String update(@PathVariable long id, Model model) {
+		Todo todo = todoRepository.findById(id).get();
+		if("Yes".equals(todo.getCompleted())) {
+			todo.setCompleted("No");
+		}
+		else {
+			todo.setCompleted("Yes");
+		}
+		todoRepository.save(todo);
+		model.addAttribute("todos", todoRepository.findAll());
+		return "redirect:/todos";
 	}
 	
 }

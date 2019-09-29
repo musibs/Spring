@@ -26,7 +26,11 @@
 		</nav>
 	</section>
 	<section id="todocontainer">
-		<h2 style="padding-top: 30px; padding-bottom: 20px;" class="text-center text-danger">Access Denied. Not Authorized to view this Page. <b><a th:href="@{/logout}">Logout</a></b> Now.</h2>
+		<h2 style="padding-top: 30px; padding-bottom: 20px;" class="text-center text-danger">Access Denied. You care not authorized perform this action. </h2>
+		<div class="d-flex justify-content-center">
+		<a class="btn btn-success" th:href="@{/login}">Login With Admin</a> &nbsp;&nbsp;
+			<a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+		</div> 
 	</section>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script
