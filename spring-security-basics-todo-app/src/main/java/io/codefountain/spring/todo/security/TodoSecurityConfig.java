@@ -21,14 +21,39 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter{
 			.withUser("chef").password("{noop}iamchef").authorities("USER","ADMIN");
 	}
 	
+	/**
+	 * Form Based login
+	 */
+	
+	
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception { http
+	 * .authorizeRequests() .antMatchers("/todos*", "/error").hasAuthority("USER")
+	 * .antMatchers("/todoDelete/*").hasAuthority("ADMIN")
+	 * .antMatchers(HttpMethod.POST, "/todo*").hasAuthority("ADMIN") .and()
+	 * .formLogin(); }
+	 */
+	 
+	
+	/**
+	 * Basic Authentication
+	 */
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/todos*", "/error").hasAuthority("USER")
+			.antMatchers("/todos").hasAuthority("USER")
 			.antMatchers("/todoDelete/*").hasAuthority("ADMIN")
 			.antMatchers(HttpMethod.POST, "/todo*").hasAuthority("ADMIN")
 			.and()
-			.formLogin();
+			//.httpBasic();
+			.formLogin()
+		/*	.and()
+			.anonymous()
+			.principal("guest")
+			.authorities("ROLE_GUEST");*/
+			.and()
+			.rememberMe();
 	}
 }
