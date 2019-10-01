@@ -9,16 +9,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import io.codefountain.spring.todo.domain.Todo;
-import io.codefountain.spring.todo.service.TodoRepository;
+import io.codefountain.spring.todo.repository.TodoRepository;
 
 @SpringBootApplication
-public class SpringSecurityBasicsTodoAppApplication implements CommandLineRunner {
+public class SpringBootTodoAppApplication implements CommandLineRunner {
 
 	@Autowired
-	private TodoRepository todoRepository;
+	public TodoRepository todoRepository;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurityBasicsTodoAppApplication.class, args);
+		SpringApplication.run(SpringBootTodoAppApplication.class, args);
 	}
 
 	@Override
@@ -28,5 +28,4 @@ public class SpringSecurityBasicsTodoAppApplication implements CommandLineRunner
 		todos.forEach(todoRepository::save);
 		
 	}
-
 }
