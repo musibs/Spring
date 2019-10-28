@@ -11,5 +11,7 @@
 <body>
 	<h3>Welcome to Court Reservation Application</h3>
 	<p>Today is :  <fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/> </p>
+	<hr />
+	<p>Time took for processing: ${handlingTime}</p>
 </body>
 </html>

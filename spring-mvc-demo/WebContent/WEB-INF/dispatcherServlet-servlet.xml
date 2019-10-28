@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean name="/hello" class="io.codefountain.spring.mvc.beans.Hello" />
+<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+	<property name="prefix">
+		<value>/WEB-INF/pages/</value>
+	</property>
+	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+</bean>   
+ </beans>

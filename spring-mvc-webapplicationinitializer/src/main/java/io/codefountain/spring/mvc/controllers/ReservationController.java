@@ -33,4 +33,6 @@ public class ReservationController {
 		modelAndView.addObject("reservations", reservations);
 		return modelAndView;
 	}
+	
+	
 }
